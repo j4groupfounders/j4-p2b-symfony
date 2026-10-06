@@ -11,6 +11,8 @@ jobs:
     env:
       APP_ENV: test
       SYMFONY_ENV: test
+      APP_DEBUG: 0
+      DATABASE_URL: sqlite:///%kernel.project_dir%/var/test.db
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -24,7 +26,9 @@ jobs:
         run: vendor/bin/phpunit --log-junit project-tests.xml
       - name: Boot and characterize
         run: |
-          php -S 127.0.0.1:3000 -t public > boot.log 2>&1 &
+          bin/console doctrine:schema:drop --force
+          bin/console doctrine:schema:create
+          php -d variables_order=EGPCS -S 127.0.0.1:3000 -t public > boot.log 2>&1 &
           python3 j4_probe.py
       - uses: actions/upload-artifact@v4
         if: always()
