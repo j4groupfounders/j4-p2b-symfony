@@ -46,7 +46,7 @@ final class CreateArticleController extends AbstractController
         $article->setAuthor($user);
 
         $form = $this->formFactory->createNamed('article', ArticleType::class, $article);
-        $form->submit($request->request->get('article'));
+        $form->submit(($request->request->all()['article'] ?? null));
 
         if ($form->isValid()) {
             $this->entityManager->persist($article);

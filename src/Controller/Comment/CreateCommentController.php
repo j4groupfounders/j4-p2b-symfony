@@ -48,7 +48,7 @@ final class CreateCommentController extends AbstractController
         $comment->setArticle($article);
 
         $form = $this->formFactory->createNamed('comment', CommentType::class, $comment);
-        $form->submit($request->request->get('comment'));
+        $form->submit(($request->request->all()['comment'] ?? null));
 
         if ($form->isValid()) {
             $this->entityManager->persist($comment);

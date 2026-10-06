@@ -42,7 +42,7 @@ final class UpdateUserController extends AbstractController
         $user = $this->userResolver->getCurrentUser();
 
         $form = $this->formFactory->createNamed('user', UserType::class, $user);
-        $form->submit($request->request->get('user'), false);
+        $form->submit(($request->request->all()['user'] ?? null), false);
 
         if ($form->isValid()) {
             $this->entityManager->flush();

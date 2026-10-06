@@ -32,7 +32,7 @@ final class UpdateArticleController extends AbstractController
     public function __invoke(Request $request, Article $article): array
     {
         $form = $this->formFactory->createNamed('article', ArticleType::class, $article);
-        $form->submit($request->request->get('article'), false);
+        $form->submit(($request->request->all()['article'] ?? null), false);
 
         if ($form->isValid()) {
             $this->entityManager->flush();

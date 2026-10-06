@@ -40,7 +40,7 @@ final class RegisterController extends AbstractController
         $user = new User();
 
         $form = $this->formFactory->createNamed('user', UserType::class, $user);
-        $form->submit($request->request->get('user'));
+        $form->submit(($request->request->all()['user'] ?? null));
 
         if ($form->isValid()) {
             $user->setPassword($this->userPasswordHasher->hashPassword($user, $user->getPassword()));
