@@ -1,0 +1,42 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/tags",
+    "status": 200,
+    "content_type": "application/json",
+    "sha256": "b35b1ec1c0c72c4bbd16bd9d6c2cbcac8224272cd7e6ecf504a78f2c7e989b2a",
+    "body": "{\"tags\":[]}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/articles",
+    "status": 200,
+    "content_type": "application/json",
+    "sha256": "e16a3d4e4f6788f0dfbcac33119bf66c17e4a5f59728e79d4c4f30ddfea7ea50",
+    "body": "{\"articles\":[],\"articlesCount\":0}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/user",
+    "status": 401,
+    "content_type": "application/json",
+    "sha256": "2b3d6859bd99b05cbb655fe69f0c822864c9280040ae32971ba5a5c9aff2d2ab",
+    "body": "{\"code\":401,\"message\":\"JWT Token not found\"}"
+  },
+  {
+    "method": "GET",
+    "path": "/j4-missing",
+    "status": 404,
+    "content_type": "application/json",
+    "sha256": "5f0c9ca6589b6c0c36feb6340715e4a436a72fe12d468ecdbeb1a16393abc1b3",
+    "body": "{\"detail\":\"Not Found\",\"status\":404,\"title\":\"An error occurred\",\"type\":\"https://tools.ietf.org/html/rfc2616#section-10\"}"
+  },
+  {
+    "method": "POST",
+    "path": "/api/users/login",
+    "status": 400,
+    "content_type": "application/json",
+    "sha256": "9ea5ea09ac6c3589ee6712679f731dd768e8e940ea4f22abea78290c4524ee01",
+    "body": "{\"detail\":\"Bad Request\",\"status\":400,\"title\":\"An error occurred\",\"type\":\"https://tools.ietf.org/html/rfc2616#section-10\"}"
+  }
+]
