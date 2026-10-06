@@ -1,0 +1,41 @@
+name: J4 P2 batch 2 bounded verification
+on:
+  push:
+    branches: ['j4/p2b-*']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    env:
+      APP_ENV: test
+      SYMFONY_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, intl, pdo_sqlite
+          tools: composer:2.2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - name: Project tests
+        run: vendor/bin/phpunit --log-junit project-tests.xml
+      - name: Boot and characterize
+        run: |
+          php -S 127.0.0.1:3000 -t public > boot.log 2>&1 &
+          python3 j4_probe.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence
+          path: |
+            surface.actual.json
+            project-tests.*
+            boot.log
+            seed-results.json
+            poetry.lock
+            composer.lock
+            yarn.lock
+          retention-days: 30
