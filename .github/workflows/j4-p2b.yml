@@ -24,12 +24,10 @@ jobs:
       - run: composer install --no-interaction --prefer-dist --no-progress
       - name: Project tests
         run: vendor/bin/phpunit --log-junit project-tests.xml
-      - name: Boot and characterize
-        run: |
-          bin/console doctrine:schema:drop --force
-          bin/console doctrine:schema:create
-          php -d variables_order=EGPCS -S 127.0.0.1:3000 -t public > boot.log 2>&1 &
-          python3 j4_probe.py
+      - name: Boot, frozen replay and project E2E
+        run: python3 j4_stage.py
+      - name: Independent preregistered seeded faults
+        run: python3 j4_seeds.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -39,6 +37,8 @@ jobs:
             project-tests.*
             boot.log
             seed-results.json
+            seed-evidence/
+            http-evidence/
             poetry.lock
             composer.lock
             yarn.lock

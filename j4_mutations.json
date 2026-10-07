@@ -1,0 +1,32 @@
+[
+  [
+    "tags-content",
+    "src/Controller/Tag/GetTagsListController.php",
+    "return ['tags' => $this->tagRepository->findAll()];",
+    "return ['tags' => ['j4-mutant']];"
+  ],
+  [
+    "article-count",
+    "src/Controller/Article/GetArticlesListController.php",
+    "'articlesCount' => $articlesCount,",
+    "'articlesCount' => $articlesCount + 1,"
+  ],
+  [
+    "tags-method",
+    "src/Controller/Tag/GetTagsListController.php",
+    "methods={\"GET\"}",
+    "methods={\"POST\"}"
+  ],
+  [
+    "user-method",
+    "src/Controller/User/GetUserController.php",
+    "methods={\"GET\"}",
+    "methods={\"POST\"}"
+  ],
+  [
+    "login-firewall",
+    "config/packages/security.yaml",
+    "pattern: ^/api/users/login",
+    "pattern: ^/api/neverlogin"
+  ]
+]
